@@ -400,6 +400,7 @@ function AnimatedNumber({ value, duration = 1000 }) {
     };
 
     requestAnimationFrame(animate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, duration]);
 
   return <span>{displayValue}</span>;
@@ -407,7 +408,7 @@ function AnimatedNumber({ value, duration = 1000 }) {
 
 // Home Page - List of Polls
 function HomePage() {
-  const { contract, account } = useWeb3();
+  const { contract } = useWeb3();
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all'); // all, active, ended
@@ -415,6 +416,7 @@ function HomePage() {
 
   useEffect(() => {
     loadPolls();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract]);
 
   const loadPolls = async () => {
@@ -995,6 +997,7 @@ function PollDetailsPage() {
 
   useEffect(() => {
     loadPollDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contract, id, account]);
 
   // Real-time countdown
