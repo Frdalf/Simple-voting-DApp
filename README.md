@@ -52,15 +52,15 @@
 
 ## 🌟 Overview
 
-**Simple Voting DApp** adalah aplikasi voting terdesentralisasi yang memungkinkan pengguna untuk membuat poll, memberikan suara, dan melihat hasil secara real-time di blockchain Ethereum. Semua data tersimpan secara permanen dan transparan di blockchain, memastikan integritas dan keamanan proses voting.
+**Simple Voting DApp** is a decentralized voting application that allows users to create polls, cast votes, and view results in real-time on the Ethereum blockchain. All data is stored permanently and transparently on the blockchain, ensuring the integrity and security of the voting process.
 
-### Mengapa Blockchain Voting?
+### Why Blockchain Voting?
 
 | Traditional Voting | Blockchain Voting |
 |-------------------|-------------------|
-| ❌ Data bisa dimanipulasi | ✅ Immutable & transparan |
-| ❌ Membutuhkan kepercayaan ke pihak ketiga | ✅ Trustless & verifiable |
-| ❌ Proses tidak transparan | ✅ Semua orang bisa memverifikasi |
+| ❌ Data can be manipulated | ✅ Immutable & transparent |
+| ❌ Requires trust in third parties | ✅ Trustless & verifiable |
+| ❌ Non-transparent process | ✅ Anyone can verify |
 | ❌ Single point of failure | ✅ Decentralized & resilient |
 
 ---
@@ -71,28 +71,28 @@
 
 | Feature | Description |
 |---------|-------------|
-| 🗳️ **Create Poll** | Buat poll dengan judul, deskripsi, 2-10 opsi, dan durasi custom |
-| ✅ **Vote** | Vote pada poll aktif (1 address = 1 vote per poll) |
-| 📊 **Real-time Results** | Lihat hasil voting dengan persentase secara real-time |
-| ⏱️ **Time-based** | Poll otomatis berakhir setelah durasi yang ditentukan |
-| 🏆 **Winner Detection** | Sistem otomatis menentukan pemenang berdasarkan vote terbanyak |
-| 🔐 **Access Control** | Hanya creator yang bisa mengakhiri poll lebih awal |
+| 🗳️ **Create Poll** | Create polls with title, description, 2-10 options, and custom duration |
+| ✅ **Vote** | Vote on active polls (1 address = 1 vote per poll) |
+| 📊 **Real-time Results** | View voting results with percentages in real-time |
+| ⏱️ **Time-based** | Polls automatically end after the specified duration |
+| 🏆 **Winner Detection** | System automatically determines the winner based on most votes |
+| 🔐 **Access Control** | Only the creator can end a poll early |
 
 ### User Experience
 
-- 🌙 **Dark Mode UI** - Interface modern dengan tema gelap yang nyaman di mata
-- 📱 **Responsive Design** - Berfungsi dengan baik di desktop dan mobile
-- 🔔 **Toast Notifications** - Notifikasi real-time untuk setiap aksi
-- ⚡ **Fast & Lightweight** - Optimized untuk performa terbaik
+- 🌙 **Dark Mode UI** - Modern interface with an eye-friendly dark theme
+- 📱 **Responsive Design** - Works well on desktop and mobile
+- 🔔 **Toast Notifications** - Real-time notifications for every action
+- ⚡ **Fast & Lightweight** - Optimized for best performance
 
 ### New Features (v2.0)
 
 | Feature | Description |
 |---------|-------------|
-| 🔗 **Share Poll** | Share ke Twitter, Facebook, atau copy link dengan satu klik |
-| 📊 **Voting Chart** | Visualisasi hasil voting dengan bar chart interaktif |
-| 👤 **Profile Page** | Lihat history voting dan statistik personal |
-| 🔔 **Real-time Notifications** | Notifikasi instan saat ada vote baru |
+| 🔗 **Share Poll** | Share to Twitter, Facebook, or copy link with one click |
+| 📊 **Voting Chart** | Visualize voting results with interactive bar chart |
+| 👤 **Profile Page** | View voting history and personal statistics |
+| 🔔 **Real-time Notifications** | Instant notifications when someone votes |
 
 ---
 
@@ -159,10 +159,10 @@
 Simple voting DApp/
 │
 ├── 📁 contracts/
-│   └── 📄 Voting.sol           # Smart contract utama
+│   └── 📄 Voting.sol           # Main smart contract
 │
 ├── 📁 scripts/
-│   └── 📄 deploy.js            # Script deployment
+│   └── 📄 deploy.js            # Deployment script
 │
 ├── 📁 test/
 │   └── 📄 Voting.test.js       # Unit tests (20 test cases)
@@ -191,7 +191,7 @@ Simple voting DApp/
 
 ### Prerequisites
 
-Pastikan kamu sudah menginstall:
+Make sure you have installed:
 
 | Requirement | Version | Check Command |
 |-------------|---------|---------------|
@@ -225,20 +225,20 @@ cd ..
 copy .env.example .env
 ```
 
-Edit file `.env`:
+Edit `.env` file:
 ```env
-# Dapatkan dari https://www.alchemy.com/ atau https://infura.io/
+# Get from https://www.alchemy.com/ or https://infura.io/
 SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
 
-# Export dari MetaMask (JANGAN SHARE!)
+# Export from MetaMask (DO NOT SHARE!)
 PRIVATE_KEY=your_wallet_private_key_here
 ```
 
 ### Local Development
 
-Buka **3 terminal** terpisah:
+Open **3 separate terminals**:
 
-**Terminal 1** - Jalankan Local Blockchain
+**Terminal 1** - Run Local Blockchain
 ```bash
 npx hardhat node
 ```
@@ -248,19 +248,19 @@ npx hardhat node
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-**Terminal 3** - Jalankan Frontend
+**Terminal 3** - Run Frontend
 ```bash
 cd frontend
 npm start
 ```
 
-Aplikasi akan terbuka di `http://localhost:3000`
+The application will open at `http://localhost:3000`
 
 ---
 
 ## 🦊 MetaMask Setup
 
-### 1. Tambah Network Localhost
+### 1. Add Localhost Network
 
 | Field | Value |
 |-------|-------|
@@ -271,34 +271,34 @@ Aplikasi akan terbuka di `http://localhost:3000`
 
 ### 2. Import Test Account
 
-Gunakan salah satu private key dari output `npx hardhat node`:
+Use one of the private keys from `npx hardhat node` output:
 
 ```
 Account #0: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 (10000 ETH)
 Private Key: 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 ```
 
-> ⚠️ **Warning**: Private key ini hanya untuk testing! Jangan gunakan di mainnet.
+> ⚠️ **Warning**: This private key is for testing only! Do not use on mainnet.
 
-### 3. Connect ke DApp
+### 3. Connect to DApp
 
-1. Buka `http://localhost:3000`
-2. Klik tombol **"Connect Wallet"**
-3. Approve connection di MetaMask
-4. Pastikan network adalah **Localhost 8545**
+1. Open `http://localhost:3000`
+2. Click **"Connect Wallet"** button
+3. Approve connection in MetaMask
+4. Make sure network is **Localhost 8545**
 
 ---
 
 ## 🌐 Deployment
 
-### Deploy ke Sepolia Testnet
+### Deploy to Sepolia Testnet
 
-1️⃣ **Dapatkan Sepolia ETH (Faucet)**
+1️⃣ **Get Sepolia ETH (Faucet)**
 - [Alchemy Sepolia Faucet](https://sepoliafaucet.com/)
 - [Infura Sepolia Faucet](https://www.infura.io/faucet/sepolia)
 - [QuickNode Sepolia Faucet](https://faucet.quicknode.com/ethereum/sepolia)
 
-2️⃣ **Konfigurasi `.env`**
+2️⃣ **Configure `.env`**
 ```env
 SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
 PRIVATE_KEY=your_metamask_private_key
@@ -309,17 +309,17 @@ PRIVATE_KEY=your_metamask_private_key
 npx hardhat run scripts/deploy.js --network sepolia
 ```
 
-4️⃣ **Verifikasi di Etherscan (Optional)**
+4️⃣ **Verify on Etherscan (Optional)**
 ```bash
 npx hardhat verify --network sepolia DEPLOYED_CONTRACT_ADDRESS
 ```
 
-### Deploy ke Mainnet
+### Deploy to Mainnet
 
-> ⚠️ **Peringatan**: Deploy ke mainnet memerlukan ETH sungguhan!
+> ⚠️ **Warning**: Deploying to mainnet requires real ETH!
 
 ```bash
-# Tambahkan network mainnet di hardhat.config.js terlebih dahulu
+# Add mainnet network to hardhat.config.js first
 npx hardhat run scripts/deploy.js --network mainnet
 ```
 
@@ -336,33 +336,33 @@ npx hardhat run scripts/deploy.js --network mainnet
 
 ### Functions Reference
 
-#### Write Functions (Memerlukan Gas)
+#### Write Functions (Requires Gas)
 
 ```solidity
-// Buat poll baru
+// Create a new poll
 function createPoll(
-    string memory _title,        // Judul poll
-    string memory _description,  // Deskripsi poll
-    string[] memory _options,    // Array opsi (min 2, max 10)
-    uint256 _duration           // Durasi dalam detik
+    string memory _title,        // Poll title
+    string memory _description,  // Poll description
+    string[] memory _options,    // Array of options (min 2, max 10)
+    uint256 _duration           // Duration in seconds
 ) external
 
-// Vote pada poll
+// Vote on a poll
 function vote(
-    uint256 _pollId,            // ID poll
-    uint256 _optionIndex        // Index opsi (0-based)
+    uint256 _pollId,            // Poll ID
+    uint256 _optionIndex        // Option index (0-based)
 ) external
 
-// Akhiri poll (hanya creator)
+// End a poll (creator only)
 function endPoll(
-    uint256 _pollId             // ID poll
+    uint256 _pollId             // Poll ID
 ) external
 ```
 
-#### Read Functions (Gratis)
+#### Read Functions (Free)
 
 ```solidity
-// Dapatkan detail poll
+// Get poll details
 function getPoll(uint256 _pollId) external view returns (
     uint256 id,
     string memory title,
@@ -374,26 +374,26 @@ function getPoll(uint256 _pollId) external view returns (
     uint256 totalVotes
 )
 
-// Dapatkan opsi poll beserta jumlah vote
+// Get poll options with vote counts
 function getPollOptions(uint256 _pollId) external view returns (
     string[] memory names,
     uint256[] memory voteCounts
 )
 
-// Dapatkan semua poll aktif
+// Get all active polls
 function getActivePolls() external view returns (uint256[] memory)
 
-// Dapatkan pemenang poll
+// Get poll winner
 function getWinner(uint256 _pollId) external view returns (
     string memory winnerName,
     uint256 winnerVoteCount,
     uint256 winnerIndex
 )
 
-// Cek apakah address sudah vote
+// Check if address has voted
 function hasVoted(uint256 _pollId, address _voter) external view returns (bool)
 
-// Dapatkan pilihan voter
+// Get voter's choice
 function getVoterChoice(uint256 _pollId, address _voter) external view returns (
     bool voted,
     uint256 optionIndex
@@ -436,14 +436,15 @@ event PollEnded(uint256 indexed pollId);
 
 | Route | Component | Description |
 |-------|-----------|-------------|
-| `/` | `HomePage` | List semua polls |
-| `/create` | `CreatePollPage` | Form buat poll baru |
-| `/poll/:id` | `PollDetailsPage` | Detail & voting poll |
+| `/` | `HomePage` | List all polls |
+| `/create` | `CreatePollPage` | Form to create new poll |
+| `/poll/:id` | `PollDetailsPage` | Poll details & voting |
+| `/profile` | `ProfilePage` | User voting history |
 
 ### Key Components
 
 ```jsx
-// Web3 Context - Mengelola koneksi wallet
+// Web3 Context - Manages wallet connection
 <Web3Provider>
   <App />
 </Web3Provider>
@@ -451,13 +452,19 @@ event PollEnded(uint256 indexed pollId);
 // Header - Navigation & wallet connection
 <Header />
 
-// Poll Card - Menampilkan preview poll
+// Poll Card - Displays poll preview
 <PollCard poll={poll} onClick={handleClick} />
+
+// Share Buttons - Social sharing
+<ShareButtons pollId={id} title={title} />
+
+// Voting Chart - Results visualization
+<VotingChart options={options} totalVotes={totalVotes} />
 ```
 
 ### Environment Variables (Frontend)
 
-Contract address dan ABI otomatis di-generate saat deployment ke `frontend/src/contracts/`.
+Contract address and ABI are auto-generated during deployment to `frontend/src/contracts/`.
 
 ---
 
@@ -534,7 +541,7 @@ require(!hasVoted[_pollId][msg.sender], "You have already voted");
 ### Best Practices
 
 - ✅ Checks-Effects-Interactions pattern
-- ✅ Pull over Push pattern (untuk future withdrawals)
+- ✅ Pull over Push pattern (for future withdrawals)
 - ✅ Fail early and fail loud
 - ✅ No floating pragma
 - ✅ Events for all state changes
@@ -573,6 +580,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Ethers.js](https://docs.ethers.org/) - Ethereum library
 - [React](https://reactjs.org/) - UI framework
 - [MetaMask](https://metamask.io/) - Web3 wallet
+- [Chart.js](https://www.chartjs.org/) - Chart visualization
 
 ---
 
