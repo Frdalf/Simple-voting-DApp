@@ -128,10 +128,23 @@ body {
 }
 
 @keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(50px, -50px) scale(1.1); }
-  50% { transform: translate(-30px, 30px) scale(0.9); }
-  75% { transform: translate(-50px, -30px) scale(1.05); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(50px, -50px) scale(1.1);
+  }
+
+  50% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+
+  75% {
+    transform: translate(-50px, -30px) scale(1.05);
+  }
 }
 
 /* Grid Pattern Overlay */
@@ -263,7 +276,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
   transition: left 0.5s ease;
 }
 
@@ -366,7 +379,7 @@ body {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(transparent, rgba(255,255,255,0.3), transparent 30%);
+  background: conic-gradient(transparent, rgba(255, 255, 255, 0.3), transparent 30%);
   animation: rotate 4s linear infinite;
 }
 
@@ -376,7 +389,9 @@ body {
 }
 
 @keyframes rotate {
-  100% { transform: rotate(360deg); }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Wallet Display */
@@ -461,7 +476,7 @@ body {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .card-header {
@@ -516,8 +531,17 @@ body {
 }
 
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.2); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
 }
 
 .badge-ended {
@@ -608,6 +632,7 @@ body {
     opacity: 0;
     transform: translateX(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -980,8 +1005,15 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 .connect-message-title {
@@ -1239,7 +1271,9 @@ body {
     justify-content: center;
   }
 
-  .orb-1, .orb-2, .orb-3 {
+  .orb-1,
+  .orb-2,
+  .orb-3 {
     opacity: 0.2;
   }
 }
@@ -1277,6 +1311,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1292,6 +1327,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1307,6 +1343,7 @@ body {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -1322,12 +1359,29 @@ body {
   animation: fadeIn 0.5s ease backwards;
 }
 
-.stagger-item:nth-child(1) { animation-delay: 0.1s; }
-.stagger-item:nth-child(2) { animation-delay: 0.2s; }
-.stagger-item:nth-child(3) { animation-delay: 0.3s; }
-.stagger-item:nth-child(4) { animation-delay: 0.4s; }
-.stagger-item:nth-child(5) { animation-delay: 0.5s; }
-.stagger-item:nth-child(6) { animation-delay: 0.6s; }
+.stagger-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.stagger-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.stagger-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.stagger-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.stagger-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.stagger-item:nth-child(6) {
+  animation-delay: 0.6s;
+}
 
 /* Hover glow effect */
 .glow-hover {
@@ -1340,8 +1394,15 @@ body {
 
 /* Pulse animation for live elements */
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .pulse {
@@ -1393,9 +1454,12 @@ body {
 /* WELCOME OVERLAY ANIMATIONS */
 /* ======================== */
 @keyframes welcome-bounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1) translateY(0);
   }
+
   50% {
     transform: scale(1.1) translateY(-20px);
   }
@@ -1406,6 +1470,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1413,40 +1478,53 @@ body {
 }
 
 @keyframes welcome-float-1 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0);
   }
+
   25% {
     transform: translate(30px, -30px);
   }
+
   50% {
     transform: translate(-20px, 20px);
   }
+
   75% {
     transform: translate(-30px, -20px);
   }
 }
 
 @keyframes welcome-float-2 {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0);
   }
+
   25% {
     transform: translate(-30px, 30px);
   }
+
   50% {
     transform: translate(20px, -20px);
   }
+
   75% {
     transform: translate(30px, 20px);
   }
 }
 
 @keyframes welcome-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.6;
     transform: scale(1.2);
@@ -1457,7 +1535,78 @@ body {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
+  }
+}
+
+/* ======================== */
+/* SHARE BUTTONS */
+/* ======================== */
+.share-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.share-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+}
+
+.share-btn-twitter:hover {
+  background: rgba(29, 161, 242, 0.15);
+  border-color: #1da1f2;
+  color: #1da1f2;
+  box-shadow: 0 0 15px rgba(29, 161, 242, 0.3);
+}
+
+.share-btn-facebook:hover {
+  background: rgba(24, 119, 242, 0.15);
+  border-color: #1877f2;
+  color: #1877f2;
+  box-shadow: 0 0 15px rgba(24, 119, 242, 0.3);
+}
+
+.share-btn-copy:hover {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  color: #10b981;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+/* ======================== */
+/* VOTING CHART */
+/* ======================== */
+.voting-chart-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .voting-chart-container {
+    height: 250px;
+    padding: 1rem;
   }
 }

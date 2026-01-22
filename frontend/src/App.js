@@ -2,7 +2,27 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { ethers } from 'ethers';
 import { Toaster, toast } from 'react-hot-toast';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import './index.css';
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 // Contract imports - will be generated after deployment
 let contractAddress = null;
@@ -328,6 +348,12 @@ function Header() {
         >
           <span>✨</span> Create
         </Link>
+        <Link
+          to="/profile"
+          className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`}
+        >
+          <span>👤</span> Profile
+        </Link>
 
         {account ? (
           <div className="wallet-btn">
@@ -404,6 +430,189 @@ function AnimatedNumber({ value, duration = 1000 }) {
   }, [value, duration]);
 
   return <span>{displayValue}</span>;
+}
+
+// Share Buttons Component
+function ShareButtons({ pollId, title }) {
+  const baseUrl = window.location.origin;
+  const pollUrl = `${baseUrl}/poll/${pollId}`;
+  const shareText = `🗳️ Vote on "${title}" - Decentralized voting on blockchain!`;
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(pollUrl);
+      toast.success('Link copied to clipboard!', {
+        icon: '📋',
+        style: {
+          background: 'rgba(16, 185, 129, 0.1)',
+          border: '1px solid rgba(16, 185, 129, 0.3)',
+          color: '#34d399',
+        },
+      });
+    } catch (err) {
+      toast.error('Failed to copy link');
+    }
+  };
+
+  const shareToTwitter = () => {
+    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pollUrl)}`;
+    window.open(url, '_blank', 'width=600,height=400');
+  };
+
+  const shareToFacebook = () => {
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pollUrl)}&quote=${encodeURIComponent(shareText)}`;
+    window.open(url, '_blank', 'width=600,height=400');
+  };
+
+  return (
+    <div className="share-buttons">
+      <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginRight: '0.5rem' }}>
+        Share:
+      </span>
+      <button
+        className="share-btn share-btn-twitter"
+        onClick={(e) => { e.stopPropagation(); shareToTwitter(); }}
+        title="Share on Twitter/X"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      </button>
+      <button
+        className="share-btn share-btn-facebook"
+        onClick={(e) => { e.stopPropagation(); shareToFacebook(); }}
+        title="Share on Facebook"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg>
+      </button>
+      <button
+        className="share-btn share-btn-copy"
+        onClick={(e) => { e.stopPropagation(); handleCopyLink(); }}
+        title="Copy link"
+      >
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+// Voting Chart Component
+function VotingChart({ options, totalVotes }) {
+  if (!options || options.length === 0 || totalVotes === 0) {
+    return null;
+  }
+
+  const sortedOptions = [...options].sort((a, b) => b.votes - a.votes);
+
+  const chartData = {
+    labels: sortedOptions.map(opt => opt.name),
+    datasets: [
+      {
+        label: 'Votes',
+        data: sortedOptions.map(opt => opt.votes),
+        backgroundColor: [
+          'rgba(139, 92, 246, 0.8)',   // Purple
+          'rgba(6, 182, 212, 0.8)',    // Cyan
+          'rgba(244, 114, 182, 0.8)',  // Pink
+          'rgba(16, 185, 129, 0.8)',   // Green
+          'rgba(245, 158, 11, 0.8)',   // Amber
+          'rgba(99, 102, 241, 0.8)',   // Indigo
+          'rgba(236, 72, 153, 0.8)',   // Rose
+          'rgba(34, 211, 238, 0.8)',   // Teal
+          'rgba(251, 146, 60, 0.8)',   // Orange
+          'rgba(168, 85, 247, 0.8)',   // Violet
+        ],
+        borderColor: [
+          'rgba(139, 92, 246, 1)',
+          'rgba(6, 182, 212, 1)',
+          'rgba(244, 114, 182, 1)',
+          'rgba(16, 185, 129, 1)',
+          'rgba(245, 158, 11, 1)',
+          'rgba(99, 102, 241, 1)',
+          'rgba(236, 72, 153, 1)',
+          'rgba(34, 211, 238, 1)',
+          'rgba(251, 146, 60, 1)',
+          'rgba(168, 85, 247, 1)',
+        ],
+        borderWidth: 2,
+        borderRadius: 8,
+        borderSkipped: false,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: '📊 Voting Results',
+        color: '#f4f4f5',
+        font: {
+          size: 16,
+          weight: '600',
+          family: "'Space Grotesk', sans-serif",
+        },
+        padding: {
+          bottom: 20,
+        },
+      },
+      tooltip: {
+        backgroundColor: 'rgba(18, 18, 26, 0.95)',
+        titleColor: '#f4f4f5',
+        bodyColor: '#a1a1aa',
+        borderColor: 'rgba(139, 92, 246, 0.3)',
+        borderWidth: 1,
+        cornerRadius: 8,
+        padding: 12,
+        callbacks: {
+          label: function (context) {
+            const percentage = ((context.raw / totalVotes) * 100).toFixed(1);
+            return `${context.raw} votes (${percentage}%)`;
+          }
+        }
+      },
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(255, 255, 255, 0.05)',
+        },
+        ticks: {
+          color: '#71717a',
+          stepSize: 1,
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: '#f4f4f5',
+          font: {
+            size: 12,
+          },
+        },
+      },
+    },
+  };
+
+  return (
+    <div className="voting-chart-container">
+      <Bar data={chartData} options={chartOptions} />
+    </div>
+  );
 }
 
 // Home Page - List of Polls
@@ -649,6 +858,8 @@ function PollCard({ poll, onClick }) {
           <span>{isActive ? timeLeft : 'Ended'}</span>
         </div>
       </div>
+
+      <ShareButtons pollId={poll.id} title={poll.title} />
     </div>
   );
 }
@@ -1011,6 +1222,37 @@ function PollDetailsPage() {
     return () => clearInterval(timer);
   }, [poll]);
 
+  // Real-time vote notifications
+  useEffect(() => {
+    if (!contract || !id) return;
+
+    const handleVoted = (pollId, voter, optionIndex) => {
+      // Only show notification for current poll and from other users
+      if (Number(pollId) === Number(id) && voter.toLowerCase() !== account?.toLowerCase()) {
+        toast.success('🗳️ Someone just voted!', {
+          icon: '🔔',
+          style: {
+            background: 'rgba(139, 92, 246, 0.1)',
+            border: '1px solid rgba(139, 92, 246, 0.3)',
+            color: '#a78bfa',
+          },
+          duration: 3000,
+        });
+        // Refresh poll data to show updated votes
+        loadPollDetails();
+      }
+    };
+
+    // Subscribe to Voted event
+    contract.on("Voted", handleVoted);
+
+    // Cleanup listener on unmount
+    return () => {
+      contract.off("Voted", handleVoted);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contract, id, account]);
+
   const loadPollDetails = async () => {
     if (!contract) {
       setLoading(false);
@@ -1193,9 +1435,8 @@ function PollDetailsPage() {
             return (
               <div
                 key={option.index}
-                className={`voting-option ${
-                  canVote ? (selectedOption === option.index ? 'selected' : '') : 'voted'
-                } ${isUserChoice ? 'user-voted' : ''}`}
+                className={`voting-option ${canVote ? (selectedOption === option.index ? 'selected' : '') : 'voted'
+                  } ${isUserChoice ? 'user-voted' : ''}`}
                 onClick={() => canVote && setSelectedOption(option.index)}
               >
                 <div className="option-content">
@@ -1232,6 +1473,11 @@ function PollDetailsPage() {
             );
           })}
         </div>
+
+        {/* Voting Chart */}
+        {poll.totalVotes > 0 && (
+          <VotingChart options={options} totalVotes={poll.totalVotes} />
+        )}
 
         {/* Action Buttons */}
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem', flexWrap: 'wrap' }}>
@@ -1288,6 +1534,11 @@ function PollDetailsPage() {
             🕐 Created: {new Date(poll.startTime * 1000).toLocaleString()}
           </p>
         </div>
+
+        {/* Share Buttons */}
+        <div style={{ marginTop: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+          <ShareButtons pollId={poll.id} title={poll.title} />
+        </div>
       </div>
     </div>
   );
@@ -1311,6 +1562,209 @@ function getTimeLeft(endTime) {
   return `${seconds}s`;
 }
 
+// Profile Page - Voting History
+function ProfilePage() {
+  const { contract, account } = useWeb3();
+  const navigate = useNavigate();
+  const [votedPolls, setVotedPolls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({ totalVoted: 0, activeVotes: 0 });
+
+  useEffect(() => {
+    if (contract && account) {
+      loadVotingHistory();
+    } else {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contract, account]);
+
+  const loadVotingHistory = async () => {
+    try {
+      setLoading(true);
+      const pollCount = await contract.pollCount();
+      const userVotedPolls = [];
+      let activeVotes = 0;
+
+      for (let i = 1; i <= Number(pollCount); i++) {
+        const [voted, choiceIndex] = await contract.getVoterChoice(i, account);
+
+        if (voted) {
+          const poll = await contract.getPoll(i);
+          const [names, votes] = await contract.getPollOptions(i);
+          const isActive = poll.isActive && Date.now() / 1000 < Number(poll.endTime);
+
+          if (isActive) activeVotes++;
+
+          userVotedPolls.push({
+            id: Number(poll.id),
+            title: poll.title,
+            description: poll.description,
+            creator: poll.creator,
+            startTime: Number(poll.startTime),
+            endTime: Number(poll.endTime),
+            isActive: isActive,
+            totalVotes: Number(poll.totalVotes),
+            userChoice: {
+              index: Number(choiceIndex),
+              name: names[Number(choiceIndex)],
+              votes: Number(votes[Number(choiceIndex)]),
+            },
+            options: names.map((name, idx) => ({
+              name,
+              votes: Number(votes[idx]),
+            })),
+          });
+        }
+      }
+
+      setVotedPolls(userVotedPolls.reverse());
+      setStats({ totalVoted: userVotedPolls.length, activeVotes });
+    } catch (error) {
+      console.error('Error loading voting history:', error);
+      toast.error('Failed to load voting history');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!account) {
+    return (
+      <div className="connect-message fade-in">
+        <div className="connect-message-icon">👤</div>
+        <h2 className="connect-message-title">Connect to View Profile</h2>
+        <p className="connect-message-text">
+          Connect your Web3 wallet to view your voting history on the blockchain.
+        </p>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="loading fade-in">
+        <div className="spinner"></div>
+        <p className="loading-text">Loading your voting history...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fade-in">
+      <h1 className="page-title">My Profile</h1>
+      <p className="page-subtitle">Your voting history on the blockchain</p>
+
+      {/* Profile Stats */}
+      <div className="stats-row">
+        <div className="stat-card">
+          <div className="stat-value"><AnimatedNumber value={stats.totalVoted} /></div>
+          <div className="stat-label">Polls Voted</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value"><AnimatedNumber value={stats.activeVotes} /></div>
+          <div className="stat-label">Active Votes</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-value">{account.slice(0, 6)}...{account.slice(-4)}</div>
+          <div className="stat-label">Wallet</div>
+        </div>
+      </div>
+
+      {/* Voted Polls List */}
+      {votedPolls.length === 0 ? (
+        <div className="empty-state">
+          <div className="empty-state-icon">🗳️</div>
+          <h3 className="empty-state-title">No votes yet</h3>
+          <p>You haven't voted on any polls yet. Start participating!</p>
+          <button className="btn btn-primary" onClick={() => navigate('/')} style={{ marginTop: '1rem' }}>
+            Browse Polls
+          </button>
+        </div>
+      ) : (
+        <div className="profile-polls-list">
+          <h3 style={{ marginBottom: '1.5rem', color: 'var(--text)' }}>📋 Your Votes ({votedPolls.length})</h3>
+          {votedPolls.map((poll, index) => {
+            const isActive = poll.isActive;
+            const percentage = poll.totalVotes > 0
+              ? ((poll.userChoice.votes / poll.totalVotes) * 100).toFixed(1)
+              : 0;
+            const leadingOption = poll.options.reduce((prev, curr) =>
+              (curr.votes > prev.votes ? curr : prev), poll.options[0]);
+            const isWinning = poll.userChoice.name === leadingOption.name;
+
+            return (
+              <div
+                key={poll.id}
+                className="card profile-poll-card stagger-item"
+                style={{ animationDelay: `${index * 0.1}s`, cursor: 'pointer' }}
+                onClick={() => navigate(`/poll/${poll.id}`)}
+              >
+                <div className="card-header">
+                  <h4 className="card-title">{poll.title}</h4>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <span className={`badge ${isActive ? 'badge-active' : 'badge-ended'}`}>
+                      {isActive ? 'Active' : 'Ended'}
+                    </span>
+                    {!isActive && isWinning && (
+                      <span className="badge badge-voted">🏆 Won</span>
+                    )}
+                  </div>
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  padding: '1rem',
+                  background: 'var(--surface)',
+                  borderRadius: '12px',
+                  marginTop: '0.5rem',
+                }}>
+                  <div style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '10px',
+                    background: 'var(--gradient-primary)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1.2rem',
+                  }}>
+                    ✓
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Your vote</div>
+                    <div style={{ fontWeight: '600', color: 'var(--text)' }}>{poll.userChoice.name}</div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div className="gradient-text" style={{ fontSize: '1.25rem', fontWeight: '700' }}>
+                      {percentage}%
+                    </div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                      {poll.userChoice.votes} of {poll.totalVotes} votes
+                    </div>
+                  </div>
+                </div>
+
+                <div className="poll-meta" style={{ marginTop: '1rem', paddingTop: '1rem' }}>
+                  <div className="poll-meta-item">
+                    <span>🗳️</span>
+                    <span>{poll.totalVotes} total votes</span>
+                  </div>
+                  <div className="poll-meta-item">
+                    <span>🕐</span>
+                    <span>{new Date(poll.startTime * 1000).toLocaleDateString()}</span>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Main App Component
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -1331,6 +1785,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/create" element={<CreatePollPage />} />
               <Route path="/poll/:id" element={<PollDetailsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </main>
           <Toaster
