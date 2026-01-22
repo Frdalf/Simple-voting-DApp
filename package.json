@@ -1,0 +1,22 @@
+{
+  "name": "simple-voting-dapp",
+  "version": "1.0.0",
+  "description": "A simple voting DApp built with Solidity, Hardhat, React, MetaMask, and Ethers.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "deploy:localhost": "npx hardhat run scripts/deploy.js --network localhost",
+    "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia",
+    "node": "npx hardhat node",
+    "client": "cd frontend && npm start",
+    "install:all": "npm install && cd frontend && npm install"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "react-jazzicon": "^1.0.4"
+  }
+}
