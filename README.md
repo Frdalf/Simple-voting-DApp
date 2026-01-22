@@ -19,6 +19,12 @@
   <img src="https://img.shields.io/badge/Tests-20%20Passing-brightgreen?style=flat-square" alt="Tests"/>
   <img src="https://img.shields.io/badge/License-MIT-blue?style=flat-square" alt="License"/>
   <img src="https://img.shields.io/badge/Network-Sepolia-purple?style=flat-square" alt="Network"/>
+  <img src="https://img.shields.io/badge/Deployed-Vercel-black?style=flat-square&logo=vercel" alt="Vercel"/>
+</p>
+
+<p align="center">
+  <a href="https://simplevoting.vercel.app" target="_blank"><strong>🔗 Live Demo</strong></a> |
+  <a href="https://sepolia.etherscan.io/address/0x1bA54fE6937d7CcfBc3A067f64D95a67197DfAf9#code" target="_blank"><strong>📜 Verified Contract</strong></a>
 </p>
 
 ---
@@ -79,6 +85,15 @@
 - 🔔 **Toast Notifications** - Notifikasi real-time untuk setiap aksi
 - ⚡ **Fast & Lightweight** - Optimized untuk performa terbaik
 
+### New Features (v2.0)
+
+| Feature | Description |
+|---------|-------------|
+| 🔗 **Share Poll** | Share ke Twitter, Facebook, atau copy link dengan satu klik |
+| 📊 **Voting Chart** | Visualisasi hasil voting dengan bar chart interaktif |
+| 👤 **Profile Page** | Lihat history voting dan statistik personal |
+| 🔔 **Real-time Notifications** | Notifikasi instan saat ada vote baru |
+
 ---
 
 ## 🛠️ Tech Stack
@@ -97,6 +112,7 @@
 | Ethers.js | 6.x | Ethereum interaction |
 | React Router | 6.x | Client-side routing |
 | React Hot Toast | 2.x | Notifications |
+| Chart.js | 4.x | Voting chart visualization |
 
 ### Blockchain
 | Network | Chain ID | Purpose |
@@ -313,10 +329,10 @@ npx hardhat run scripts/deploy.js --network mainnet
 
 ### Contract Address
 
-| Network | Address |
-|---------|---------|
-| Localhost | `0x5FbDB2315678afecb367f032d93F642f64180aa3` |
-| Sepolia | *Deploy untuk mendapatkan address* |
+| Network | Address | Verified |
+|---------|---------|----------|
+| Localhost | `0x5FbDB2315678afecb367f032d93F642f64180aa3` | - |
+| Sepolia | [`0x1bA54fE6937d7CcfBc3A067f64D95a67197DfAf9`](https://sepolia.etherscan.io/address/0x1bA54fE6937d7CcfBc3A067f64D95a67197DfAf9#code) | ✅ |
 
 ### Functions Reference
 
